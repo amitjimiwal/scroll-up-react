@@ -1,6 +1,6 @@
 {
   "name": "scroll-up-react",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A simple page progress bar for your react project",
   "main": "dist/cjs/index.js",
   "files": [
