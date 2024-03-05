@@ -1,40 +1,13 @@
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import typescript from '@rollup/plugin-typescript'
-import dts from 'rollup-plugin-dts'
+import { defineConfig } from "rollup";
+import typescript from "@rollup/plugin-typescript";
 
-//NEW
-import terser from '@rollup/plugin-terser'
-import peerDepsExternal from 'rollup-plugin-peer-deps-external'
-
-const packageJson = require('./package.json')
-
-export default [
-  {
-    input: 'src/index.ts',
-    output: [
-      {
-        file: packageJson.main,
-        format: 'esm',
-        sourcemap: true,
-      },
-    ],
-    plugins: [
-      // NEW
-      typescript(),
-      peerDepsExternal(),
-
-      resolve(),
-      commonjs(),
-
-      // NEW
-      terser(),
-    ],
+export default defineConfig({
+  input: "src/index.ts",
+  output: {
+    dir: "dist",
+    format: "es",
+    name: "scroll-up-react",
   },
-  {
-    input: 'dist/cjs/types/src/index.d.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
-    plugins: [dts.default()],
-    external: [/\.css$/],
-  },
-]
+  external: ["react", "react-dom"],
+  plugins: [typescript({ tsconfig: "tsconfig.json" })],
+});
